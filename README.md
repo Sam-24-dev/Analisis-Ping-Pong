@@ -149,4 +149,4 @@ Analisis-Ping-Pong/
 
 ---
 
-If you find this analysis useful, please give the repository a star.
+⭐ If you find this analysis useful, please give the repository a star.
