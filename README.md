@@ -1,15 +1,16 @@
-# 🏓 Statistical Analysis: Ping Pong Precision Model
+# Statistical Analysis: Ping Pong Precision Model
 
 <div align="center">
 
   ![R](https://img.shields.io/badge/Language-R_Programming-276DC3?style=for-the-badge&logo=r&logoColor=white)
   ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
   ![Data](https://img.shields.io/badge/Data-309_Observations-blueviolet?style=for-the-badge)
+  ![Pipeline](https://img.shields.io/badge/Pipeline-Automated-orange?style=for-the-badge)
 
   <br>
 
   <a href="https://sam-24-dev.github.io/Analisis-Ping-Pong/">
-    <img src="https://img.shields.io/badge/📄_Read_Full_Report-View_Analysis-0078D4?style=for-the-badge&logo=readthedocs&logoColor=white" />
+    <img src="https://img.shields.io/badge/Read_Full_Report-View_Analysis-0078D4?style=for-the-badge&logo=readthedocs&logoColor=white" />
   </a>
   &nbsp;
   <a href="https://github.com/Sam-24-dev/Analisis-Ping-Pong">
@@ -20,7 +21,7 @@
 
 ---
 
-##  Project Overview
+## Project Overview
 
 This project is a rigorous experimental study designed to **model and predict the precision of ping pong serves** under controlled conditions. 
 
@@ -30,74 +31,122 @@ Using a dataset of **309 observations**, I implemented a comprehensive statistic
 
 ---
 
-##  Statistical Methodology
+## Pipeline Architecture
+
+This project implements an **automated data pipeline** where R generates statistical outputs that the web frontend consumes dynamically:
+
+```
+R Script → JSON + PNG Charts → Web Frontend (loads dynamically)
+```
+
+| Component | Output |
+|-----------|--------|
+| R Script | Processes 309 observations, runs statistical tests |
+| JSON Export | `web/results/analysis_results.json` |
+| PNG Charts | 4 visualizations in `web/images/` |
+| Web Frontend | Loads data dynamically via JavaScript |
+
+---
+
+## Statistical Methodology
 
 To ensure scientific validity, the analysis followed a structured pipeline:
 
-1.  **Experimental Design:** Controlled data collection with categorical (Handedness, Serve Height) and quantitative variables (Attempts, Time).
-2.  **Model Selection:** Proposed a **Negative Binomial Model** to analyze the number of failures before achieving 3 successes ($k=3$).
-3.  **Hypothesis Testing:** Used **Chi-Square Goodness of Fit** tests to validate the model.
-4.  **Correlation Analysis:** Evaluated the relationship between fatigue (number of attempts) and efficiency (time).
+1. **Experimental Design:** Controlled data collection with categorical (Handedness, Serve Height) and quantitative variables (Attempts, Time).
+2. **Model Selection:** Proposed a **Negative Binomial Model** to analyze the number of failures before achieving 3 successes ($k=3$).
+3. **Hypothesis Testing:** Used **Chi-Square Goodness of Fit** tests to validate the model.
+4. **Correlation Analysis:** Evaluated the relationship between fatigue (number of attempts) and efficiency (time).
 
 ---
 
-##  Key Findings & Insights
+## Key Findings & Insights
 
-| Metric | Result | Interpretation (Data Analysis) |
+| Metric | Result | Interpretation |
 | :--- | :--- | :--- |
-| **Model Fit (P-Value)** | **0.6603**  | The data **successfully fits** the Negative Binomial model. There is no significant difference between observed and theoretical values. |
-| **Avg. Serve Time** | **1.945s** | Significantly faster than the theoretical benchmark of 2.0s (Validated via T-Test). |
-| **Correlation ($r$)** | **0.65**  | Moderate **positive correlation**: As the number of attempts increases, serve time increases (Fatigue factor). |
-| **Demographics** | **64.4%** | Proportion of right-handed players, consistent with the general population parameter. |
+| **Model Fit (P-Value)** | **0.6603** | The data **successfully fits** the Negative Binomial model |
+| **Avg. Serve Time** | **1.945s** | Significantly faster than the theoretical benchmark of 2.0s |
+| **Correlation ($r$)** | **0.65** | Moderate **positive correlation**: fatigue effect observed |
+| **Demographics** | **64.4%** | Right-handed proportion, consistent with population |
 
 ---
 
-##  Visualizations & Analysis
+## Visualizations
 
-The study includes interactive visualizations generated with **RMarkdown**:
-* **Distribution Analysis:** Histograms overlaying the Negative Binomial curve.
-* **Bivariate Analysis:** Scatter plots with regression lines identifying the time-attempt correlation.
-* **Categorical Segmentation:** Boxplots analyzing performance differences by Handedness and Serve Height.
-* **Contingency Tables:** Chi-square tests for independence between categorical variables.
+The R pipeline generates 4 professional charts automatically:
 
----
-
-##  Tech Stack
-
-This project was built using the **R Ecosystem** for reproducible research:
-
-* **Language:** ![R](https://img.shields.io/badge/R-276DC3?style=flat-square&logo=r&logoColor=white)
-* **Reporting:** ![RMarkdown](https://img.shields.io/badge/RMarkdown-75AADB?style=flat-square&logo=r&logoColor=black)
-* **Libraries:** `ggplot2` (Visualization), `dplyr` (Data Manipulation), `stats` (Hypothesis Testing).
-* **Web Format:** HTML5, CSS3, JavaScript (for report rendering).
+| Chart | Description |
+|-------|-------------|
+| `attempts_distribution.png` | Histogram with mean line |
+| `time_distribution.png` | Serve time distribution |
+| `correlation_scatter.png` | Attempts vs Time with regression |
+| `boxplot_handedness.png` | Time by dominant hand |
 
 ---
 
-##  How to Run
+## Tech Stack
 
-To replicate this analysis:
+| Category | Technologies |
+|----------|-------------|
+| **Data Analysis** | R, tidyverse, ggplot2 |
+| **Data Export** | jsonlite (JSON), ggsave (PNG) |
+| **Frontend** | HTML5, CSS3, JavaScript |
+| **Deployment** | GitHub Pages |
 
-1.  Clone the repository:
-    ```bash
-    git clone [https://github.com/Sam-24-dev/Analisis-Ping-Pong.git](https://github.com/Sam-24-dev/Analisis-Ping-Pong.git)
-    ```
-2.  Open `Analisis_Ping_Pong.Rmd` in **RStudio**.
-3.  Install dependencies:
-    ```r
-    install.packages(c("ggplot2", "dplyr", "knitr"))
-    ```
-4.  Click **"Knit"** to generate the HTML report.
+---
+
+## How to Run
+
+### Prerequisites
+```r
+install.packages(c("tidyverse", "jsonlite", "here"))
+```
+
+### Execute Pipeline
+```bash
+cd scripts
+Rscript ping_pong_analysis.R
+```
+
+### Outputs Generated
+- `web/results/analysis_results.json`
+- `web/images/attempts_distribution.png`
+- `web/images/time_distribution.png`
+- `web/images/correlation_scatter.png`
+- `web/images/boxplot_handedness.png`
+
+---
+
+## Project Structure
+
+```
+Analisis-Ping-Pong/
+├── data/
+│   └── ping_pong_experiment_data.csv
+├── scripts/
+│   └── ping_pong_analysis.R
+└── web/
+    ├── index.html
+    ├── styles.css
+    ├── script.js
+    ├── results/
+    │   └── analysis_results.json    [Generated by R]
+    └── images/
+        └── *.png                     [Generated by R]
+```
 
 ---
 
 <div align="center">
 
-### 👤 Author
-**Samir Caizapasto**
-*Data Engineer & Analyst in Training*
+### Author
+**Samir Caizapasto**  
+*Junior Data Engineer & Analyst*
 
 [![](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/samircaizapasto/)
+[![](https://img.shields.io/badge/Portfolio-Visit-00d4ff?style=for-the-badge&logo=vercel)](https://portafolio-samir-tau.vercel.app/)
 
 </div>
 
-⭐ If you find this analysis useful, please give the repository a star.
+---
+
+If you find this analysis useful, please give the repository a star.

@@ -1,0 +1,16 @@
+# R
+*.Rhistory
+*.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+*.swp
+
+# Python (if used)
+__pycache__/
+*.pyc

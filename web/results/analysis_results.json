@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "last_updated": "2026-01-03",
+    "sample_size": 309,
+    "data_source": "ESPOL Ping Pong Experiment"
+  },
+  "descriptive": {
+    "serve_time": {
+      "mean": 1.945,
+      "sd": 0.32,
+      "median": 1.89,
+      "min": 1.24,
+      "max": 2.91
+    },
+    "attempts": {
+      "mean": 9.61,
+      "sd": 5.52,
+      "median": 9,
+      "min": 3,
+      "max": 47
+    }
+  },
+  "inferential": {
+    "chi_square": {
+      "statistic": 0.1931,
+      "p_value": 0.6603,
+      "conclusion": "Data fits Negative Binomial model"
+    },
+    "t_test": {
+      "statistic": -2.9947,
+      "p_value": 0.0015,
+      "conclusion": "Mean significantly less than 2s"
+    },
+    "correlation": {
+      "r": 0.0494,
+      "p_value": 0.3866,
+      "interpretation": "Weak"
+    }
+  },
+  "categorical": {
+    "handedness": {
+      "right_handed": {
+        "count": 199,
+        "proportion": 0.644
+      },
+      "left_handed": {
+        "count": 110,
+        "proportion": 0.356
+      }
+    },
+    "serve_height": {
+      "1": {
+        "category": "Above Shoulders",
+        "count": 107,
+        "proportion": 0.3463
+      },
+      "2": {
+        "category": "Above Waist",
+        "count": 142,
+        "proportion": 0.4595
+      },
+      "3": {
+        "category": "Below Waist",
+        "count": 60,
+        "proportion": 0.1942
+      }
+    }
+  }
+}
