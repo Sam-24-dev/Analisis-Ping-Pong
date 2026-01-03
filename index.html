@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis Estadístico - Precisión en Saques de Ping Pong</title>
+    <title>Statistical Analysis - Ping Pong Precision | Samir Caizapasto</title>
+    <meta name="description"
+        content="Rigorous experimental study modeling ping pong serve precision using Negative Binomial distribution validation with 309 observations.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <i class="fas fa-table-tennis"></i>
-                    <span>Análisis Ping Pong</span>
+                    <i class="fas fa-table-tennis-paddle-ball"></i>
+                    <span>Ping Pong Analysis</span>
                 </div>
                 <nav class="nav">
-                    <a href="#resumen" class="nav-link">Resumen</a>
-                    <a href="#objetivos" class="nav-link">Objetivos</a>
-                    <a href="#analisis" class="nav-link">Análisis</a>
-                    <a href="#visualizaciones" class="nav-link">Gráficos</a>
-                    <a href="#conclusiones" class="nav-link">Conclusiones</a>
+                    <a href="#summary" class="nav-link">Summary</a>
+                    <a href="#objectives" class="nav-link">Objectives</a>
+                    <a href="#analysis" class="nav-link">Analysis</a>
+                    <a href="#visualizations" class="nav-link">Charts</a>
+                    <a href="#conclusions" class="nav-link">Conclusions</a>
                 </nav>
                 <button class="menu-toggle" id="menuToggle">
                     <i class="fas fa-bars"></i>
@@ -37,8 +39,8 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Análisis Estadístico</h1>
-                <h2 class="hero-subtitle">Precisión en Saques de Ping Pong</h2>
+                <h1 class="hero-title">Statistical Analysis</h1>
+                <h2 class="hero-subtitle">Ping Pong Serve Precision Model</h2>
                 <div class="hero-meta">
                     <div class="author-info">
                         <i class="fas fa-user"></i>
@@ -50,21 +52,25 @@
                     </div>
                     <div class="date">
                         <i class="fas fa-calendar"></i>
-                        <span>Enero 2025</span>
+                        <span>January 2025</span>
+                    </div>
+                    <div class="date">
+                        <i class="fas fa-sync-alt"></i>
+                        <span id="last-updated">Updated: January 2026</span>
                     </div>
                 </div>
                 <div class="hero-stats">
                     <div class="stat-card">
-                        <div class="stat-number">309</div>
-                        <div class="stat-label">Observaciones</div>
+                        <div class="stat-number" id="stat-observations">309</div>
+                        <div class="stat-label">Observations</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">k=3, p=0.3</div>
-                        <div class="stat-label">Modelo Binomial</div>
+                        <div class="stat-label">Negative Binomial Model</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">r=0.65</div>
-                        <div class="stat-label">Correlación</div>
+                        <div class="stat-number" id="stat-correlation">r=0.65</div>
+                        <div class="stat-label">Correlation</div>
                     </div>
                 </div>
             </div>
@@ -74,144 +80,153 @@
     <!-- Main Content -->
     <main class="main">
         <div class="container">
-            <!-- Resumen Ejecutivo -->
-            <section id="resumen" class="section">
+            <!-- Executive Summary -->
+            <section id="summary" class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-chart-line"></i>
-                        Resumen Ejecutivo
+                        Executive Summary
                     </h2>
                 </div>
                 <div class="content-card">
                     <p class="lead">
-                        Este estudio analiza la precisión en saques de ping pong mediante un experimento controlado con 
-                        <strong>309 observaciones</strong>. Se validó un modelo <strong>binomial negativo</strong> (k=3, p=0.3) 
-                        y se encontraron patrones significativos en el rendimiento de los participantes.
+                        This study analyzes ping pong serve precision through a controlled experiment with
+                        <strong id="summary-observations">309 observations</strong>. We validated a
+                        <strong>Negative Binomial model</strong> (k=3, p=0.3) and found significant patterns
+                        in participant performance.
                     </p>
                     <div class="highlight-box">
-                        <h4><i class="fas fa-lightbulb"></i> Hallazgo Principal</h4>
-                        <p>Los datos se ajustan significativamente al modelo propuesto con un valor p = 0.660, 
-                        validando la hipótesis de distribución binomial negativa.</p>
+                        <h4><i class="fas fa-lightbulb"></i> Key Finding</h4>
+                        <p>The data fits the proposed model with p-value = <span id="summary-pvalue">0.660</span>,
+                            validating the Negative Binomial distribution hypothesis.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Objetivos -->
-            <section id="objetivos" class="section">
+            <!-- Objectives -->
+            <section id="objectives" class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-bullseye"></i>
-                        Objetivos del Estudio
+                        Study Objectives
                     </h2>
                 </div>
                 <div class="objectives-grid">
                     <div class="objective-card main-objective">
-                        <h3><i class="fas fa-star"></i> Objetivo General</h3>
-                        <p>Analizar el comportamiento estadístico de la precisión en lanzamientos de ping pong mediante un modelo binomial negativo.</p>
+                        <h3><i class="fas fa-star"></i> General Objective</h3>
+                        <p>Analyze the statistical behavior of ping pong serve precision using a Negative Binomial
+                            model.</p>
                     </div>
                     <div class="objective-card">
-                        <h4><i class="fas fa-check-circle"></i> Objetivos Específicos</h4>
+                        <h4><i class="fas fa-check-circle"></i> Specific Objectives</h4>
                         <ul>
-                            <li>Validar el ajuste del modelo binomial negativo (k=3, p=0.3)</li>
-                            <li>Evaluar diferencias en tiempo promedio de saque</li>
-                            <li>Analizar relación entre variables categóricas</li>
-                            <li>Cuantificar correlación entre intentos y tiempo</li>
+                            <li>Validate the Negative Binomial model fit (k=3, p=0.3)</li>
+                            <li>Evaluate differences in average serve time</li>
+                            <li>Analyze relationships between categorical variables</li>
+                            <li>Quantify correlation between attempts and time</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- Análisis Descriptivo -->
-            <section id="analisis" class="section">
+            <!-- Descriptive Analysis -->
+            <section id="analysis" class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-table"></i>
-                        Análisis Descriptivo
+                        Descriptive Analysis
                     </h2>
                 </div>
-                
-                <!-- Estadísticas Generales -->
+
+                <!-- General Statistics -->
                 <div class="content-card">
-                    <h3>Estadísticas Generales</h3>
+                    <h3>General Statistics</h3>
                     <div class="stats-table">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Métrica</th>
-                                    <th>Valor</th>
-                                    <th>Descripción</th>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Total Observaciones</strong></td>
-                                    <td>309</td>
-                                    <td>Número total de experimentos realizados</td>
+                                    <td><strong>Total Observations</strong></td>
+                                    <td id="stat-total-obs">309</td>
+                                    <td>Total number of experiments conducted</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Media Intentos</strong></td>
-                                    <td>3.2</td>
-                                    <td>Promedio de intentos hasta el éxito</td>
+                                    <td><strong>Mean Attempts</strong></td>
+                                    <td id="stat-mean-attempts">3.2</td>
+                                    <td>Average attempts until success</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Media Tiempo (s)</strong></td>
-                                    <td>1.945</td>
-                                    <td>Tiempo promedio de saque en segundos</td>
+                                    <td><strong>Mean Serve Time (s)</strong></td>
+                                    <td id="stat-mean-time">1.945</td>
+                                    <td>Average serve time in seconds</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Desv. Est. Intentos</strong></td>
-                                    <td>2.1</td>
-                                    <td>Variabilidad en número de intentos</td>
+                                    <td><strong>Std Dev Attempts</strong></td>
+                                    <td id="stat-sd-attempts">2.1</td>
+                                    <td>Variability in number of attempts</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Desv. Est. Tiempo</strong></td>
-                                    <td>0.85</td>
-                                    <td>Variabilidad en tiempo de saque</td>
+                                    <td><strong>Std Dev Time</strong></td>
+                                    <td id="stat-sd-time">0.32</td>
+                                    <td>Variability in serve time</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Variables Categóricas -->
+                <!-- Categorical Variables -->
                 <div class="content-card">
-                    <h3>Distribución de Variables Categóricas</h3>
+                    <h3>Categorical Variable Distribution</h3>
                     <div class="categorical-grid">
                         <div class="categorical-card">
-                            <h4><i class="fas fa-hand-paper"></i> Mano Dominante</h4>
+                            <h4><i class="fas fa-hand-paper"></i> Dominant Hand</h4>
                             <div class="freq-table">
                                 <div class="freq-row">
-                                    <span>Diestros</span>
+                                    <span>Right-handed</span>
                                     <span class="freq-bar">
-                                        <span class="freq-fill" style="width: 64.4%"></span>
+                                        <span class="freq-fill" id="right-handed-bar" style="width: 64.4%"></span>
                                     </span>
-                                    <span>64.4%</span>
+                                    <span id="right-handed-pct">64.4%</span>
                                 </div>
                                 <div class="freq-row">
-                                    <span>Zurdos</span>
+                                    <span>Left-handed</span>
                                     <span class="freq-bar">
-                                        <span class="freq-fill" style="width: 35.6%"></span>
+                                        <span class="freq-fill" id="left-handed-bar" style="width: 35.6%"></span>
                                     </span>
-                                    <span>35.6%</span>
+                                    <span id="left-handed-pct">35.6%</span>
                                 </div>
                             </div>
                         </div>
                         <div class="categorical-card">
-                            <h4><i class="fas fa-arrows-alt-v"></i> Altura de Saque</h4>
+                            <h4><i class="fas fa-arrows-alt-v"></i> Serve Height</h4>
                             <div class="freq-table">
                                 <div class="freq-row">
-                                    <span>Alta</span>
+                                    <span>Above Waist</span>
                                     <span class="freq-bar">
-                                        <span class="freq-fill" style="width: 52.1%"></span>
+                                        <span class="freq-fill" style="width: 45.9%"></span>
                                     </span>
-                                    <span>52.1%</span>
+                                    <span>45.9%</span>
                                 </div>
                                 <div class="freq-row">
-                                    <span>Baja</span>
+                                    <span>Above Shoulders</span>
                                     <span class="freq-bar">
-                                        <span class="freq-fill" style="width: 47.9%"></span>
+                                        <span class="freq-fill" style="width: 34.6%"></span>
                                     </span>
-                                    <span>47.9%</span>
+                                    <span>34.6%</span>
+                                </div>
+                                <div class="freq-row">
+                                    <span>Below Waist</span>
+                                    <span class="freq-bar">
+                                        <span class="freq-fill" style="width: 19.4%"></span>
+                                    </span>
+                                    <span>19.4%</span>
                                 </div>
                             </div>
                         </div>
@@ -219,106 +234,111 @@
                 </div>
             </section>
 
-            <!-- Visualizaciones -->
-            <section id="visualizaciones" class="section">
+            <!-- Visualizations -->
+            <section id="visualizations" class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-chart-bar"></i>
-                        Visualizaciones Interactivas
+                        Data Visualizations
                     </h2>
+                    <p class="section-subtitle">Charts generated automatically by the R analysis pipeline</p>
                 </div>
-                
+
                 <div class="charts-grid">
-                    <!-- Distribución de Intentos -->
+                    <!-- Attempts Distribution -->
                     <div class="chart-card">
-                        <h3><i class="fas fa-histogram"></i> Distribución de Intentos</h3>
-                        <div id="intentosChart" class="chart-container"></div>
+                        <h3><i class="fas fa-histogram"></i> Attempts Distribution</h3>
+                        <div class="chart-container">
+                            <img src="images/attempts_distribution.png" alt="Distribution of Attempts"
+                                class="chart-image">
+                        </div>
                         <p class="chart-description">
-                            Histograma que muestra la distribución del número de intentos hasta lograr el éxito. 
-                            La línea roja indica la media (3.2 intentos).
+                            Histogram showing the distribution of attempts until success.
+                            The red dashed line indicates the mean.
                         </p>
                     </div>
 
-                    <!-- Distribución de Tiempo -->
+                    <!-- Time Distribution -->
                     <div class="chart-card">
-                        <h3><i class="fas fa-clock"></i> Distribución de Tiempo de Saque</h3>
-                        <div id="tiempoChart" class="chart-container"></div>
+                        <h3><i class="fas fa-clock"></i> Serve Time Distribution</h3>
+                        <div class="chart-container">
+                            <img src="images/time_distribution.png" alt="Serve Time Distribution" class="chart-image">
+                        </div>
                         <p class="chart-description">
-                            Distribución del tiempo de saque en segundos. Media: 1.945 segundos, 
-                            significativamente menor al valor teórico de 2 segundos.
+                            Distribution of serve time in seconds. Mean is significantly
+                            lower than the theoretical value of 2 seconds.
                         </p>
                     </div>
 
-                    <!-- Correlación -->
+                    <!-- Correlation -->
                     <div class="chart-card full-width">
-                        <h3><i class="fas fa-project-diagram"></i> Correlación Intentos vs Tiempo</h3>
-                        <div id="correlacionChart" class="chart-container"></div>
+                        <h3><i class="fas fa-project-diagram"></i> Attempts vs Time Correlation</h3>
+                        <div class="chart-container">
+                            <img src="images/correlation_scatter.png" alt="Correlation Scatter Plot"
+                                class="chart-image">
+                        </div>
                         <p class="chart-description">
-                            Gráfico de dispersión mostrando la relación entre número de intentos y tiempo de saque. 
-                            Correlación moderada positiva (r = 0.65), sugiriendo efecto de fatiga.
+                            Scatter plot showing the relationship between number of attempts and serve time.
+                            Moderate positive correlation suggests a fatigue effect.
                         </p>
                     </div>
 
-                    <!-- Boxplot por Mano -->
+                    <!-- Boxplot by Handedness -->
                     <div class="chart-card full-width">
-                        <h3><i class="fas fa-box"></i> Tiempo por Mano Dominante</h3>
-                        <div id="boxplotChart" class="chart-container"></div>
+                        <h3><i class="fas fa-box"></i> Serve Time by Handedness</h3>
+                        <div class="chart-container">
+                            <img src="images/boxplot_handedness.png" alt="Boxplot by Handedness" class="chart-image">
+                        </div>
                         <p class="chart-description">
-                            Comparación de distribución de tiempos entre jugadores diestros y zurdos.
+                            Comparison of time distribution between right-handed and left-handed players.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Estadística Inferencial -->
+            <!-- Inferential Statistics -->
             <section class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-calculator"></i>
-                        Estadística Inferencial
+                        Inferential Statistics
                     </h2>
                 </div>
                 <div class="content-card">
-                    <h3>Resultados de Pruebas Estadísticas</h3>
+                    <h3>Statistical Test Results</h3>
                     <div class="inference-table">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Prueba</th>
-                                    <th>Estadístico</th>
-                                    <th>Valor p</th>
-                                    <th>Conclusión</th>
-                                    <th>Significancia</th>
+                                    <th>Test</th>
+                                    <th>Statistic</th>
+                                    <th>P-Value</th>
+                                    <th>Conclusion</th>
+                                    <th>Significance</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="success-row">
-                                    <td><strong>Bondad de Ajuste (Chi²)</strong></td>
-                                    <td>χ² = 0.193</td>
-                                    <td>0.660</td>
-                                    <td>Se ajusta al modelo</td>
-                                    <td><span class="badge success">No Significativo</span></td>
+                                    <td><strong>Goodness of Fit (Chi²)</strong></td>
+                                    <td id="chi-sq-stat">χ² = 0.193</td>
+                                    <td id="chi-sq-pvalue">0.660</td>
+                                    <td id="chi-sq-conclusion">Fits the model</td>
+                                    <td><span class="badge success">Not Significant</span></td>
                                 </tr>
                                 <tr class="significant-row">
-                                    <td><strong>Tiempo vs 2 segundos</strong></td>
-                                    <td>t = -3.18</td>
-                                    <td>0.002</td>
-                                    <td>Significativamente menor a 2s</td>
-                                    <td><span class="badge significant">Significativo</span></td>
-                                </tr>
-                                <tr class="neutral-row">
-                                    <td><strong>Proporción Diestros vs 0.6</strong></td>
-                                    <td>z = 1.59</td>
-                                    <td>0.114</td>
-                                    <td>No difiere significativamente</td>
-                                    <td><span class="badge neutral">No Significativo</span></td>
+                                    <td><strong>Time vs 2 seconds</strong></td>
+                                    <td id="t-test-stat">t = -3.18</td>
+                                    <td id="t-test-pvalue">0.002</td>
+                                    <td id="t-test-conclusion">Significantly less than 2s</td>
+                                    <td><span class="badge significant">Significant</span></td>
                                 </tr>
                                 <tr class="significant-row">
-                                    <td><strong>Correlación Intentos-Tiempo</strong></td>
-                                    <td>r = 0.65</td>
-                                    <td>&lt; 0.001</td>
-                                    <td>Correlación significativa</td>
-                                    <td><span class="badge significant">Muy Significativo</span></td>
+                                    <td><strong>Attempts-Time Correlation</strong></td>
+                                    <td id="correlation-r">r = 0.65</td>
+                                    <td id="correlation-pvalue">
+                                        < 0.001</td>
+                                    <td id="correlation-interpretation">Significant correlation</td>
+                                    <td><span class="badge significant">Very Significant</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -326,76 +346,79 @@
                 </div>
             </section>
 
-            <!-- Conclusiones -->
-            <section id="conclusiones" class="section">
+            <!-- Conclusions -->
+            <section id="conclusions" class="section">
                 <div class="section-header">
                     <h2 class="section-title">
                         <i class="fas fa-lightbulb"></i>
-                        Conclusiones
+                        Conclusions
                     </h2>
                 </div>
-                
+
                 <div class="conclusions-grid">
                     <div class="conclusion-card primary">
-                        <h3><i class="fas fa-check-circle"></i> Hallazgos Principales</h3>
+                        <h3><i class="fas fa-check-circle"></i> Key Findings</h3>
                         <div class="findings-list">
                             <div class="finding-item">
                                 <div class="finding-number">1</div>
                                 <div class="finding-content">
-                                    <h4>Modelo Validado</h4>
-                                    <p>Los datos se ajustan significativamente al modelo binomial negativo (k=3, p=0.3) con p = 0.660</p>
+                                    <h4>Model Validated</h4>
+                                    <p>Data fits the Negative Binomial model (k=3, p=0.3) with p = 0.660</p>
                                 </div>
                             </div>
                             <div class="finding-item">
                                 <div class="finding-number">2</div>
                                 <div class="finding-content">
-                                    <h4>Eficiencia Temporal</h4>
-                                    <p>El tiempo promedio de saque (1.945s) es significativamente menor al valor teórico de 2 segundos</p>
+                                    <h4>Temporal Efficiency</h4>
+                                    <p>Average serve time (1.945s) is significantly lower than theoretical 2 seconds</p>
                                 </div>
                             </div>
                             <div class="finding-item">
                                 <div class="finding-number">3</div>
                                 <div class="finding-content">
-                                    <h4>Correlación Positiva</h4>
-                                    <p>Existe una correlación moderada (r = 0.65) entre número de intentos y tiempo de saque</p>
+                                    <h4>Positive Correlation</h4>
+                                    <p>Moderate correlation (r = 0.65) between attempts and serve time</p>
                                 </div>
                             </div>
                             <div class="finding-item">
                                 <div class="finding-number">4</div>
                                 <div class="finding-content">
-                                    <h4>Distribución Natural</h4>
-                                    <p>La proporción de jugadores diestros (64.4%) es consistente con la distribución poblacional</p>
+                                    <h4>Natural Distribution</h4>
+                                    <p>Right-handed player proportion (64.4%) is consistent with population distribution
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="conclusion-card secondary">
-                        <h3><i class="fas fa-cogs"></i> Implicaciones Prácticas</h3>
+                        <h3><i class="fas fa-cogs"></i> Practical Implications</h3>
                         <ul class="implications-list">
-                            <li>Los jugadores tienden a ser más eficientes temporalmente de lo esperado</li>
-                            <li>La fatiga o ajuste de técnica influye en el tiempo conforme aumentan los intentos</li>
-                            <li>El modelo binomial negativo es apropiado para predecir patrones de éxito en este contexto</li>
+                            <li>Players tend to be more temporally efficient than expected</li>
+                            <li>Fatigue or technique adjustment influences time as attempts increase</li>
+                            <li>The Negative Binomial model is appropriate for predicting success patterns in this
+                                context</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- Información del Proyecto -->
+            <!-- Project Info -->
             <section class="section">
                 <div class="project-info">
                     <div class="info-grid">
                         <div class="info-card">
-                            <h3><i class="fas fa-user-graduate"></i> Información del Autor</h3>
-                            <p><strong>Autor:</strong> Samir Leonardo Caizapasto Hernández</p>
-                            <p><strong>Institución:</strong> Escuela Superior Politécnica del Litoral (ESPOL)</p>
-                            <p><strong>Materia:</strong> Estadística para Ingeniería</p>
-                            <p><strong>Fecha:</strong> Enero 2025</p>
+                            <h3><i class="fas fa-user-graduate"></i> Author Information</h3>
+                            <p><strong>Author:</strong> Samir Leonardo Caizapasto Hernández</p>
+                            <p><strong>Institution:</strong> Escuela Superior Politécnica del Litoral (ESPOL)</p>
+                            <p><strong>Course:</strong> Statistics for Engineering</p>
+                            <p><strong>Date:</strong> January 2025</p>
                         </div>
                         <div class="info-card">
-                            <h3><i class="fab fa-github"></i> Repositorio</h3>
-                            <p>El código completo y los datos están disponibles en:</p>
-                            <a href="https://github.com/Sam-24-dev/Analisis-Ping-Pong" class="github-link" target="_blank">
+                            <h3><i class="fab fa-github"></i> Repository</h3>
+                            <p>The complete code and data are available at:</p>
+                            <a href="https://github.com/Sam-24-dev/Analisis-Ping-Pong" class="github-link"
+                                target="_blank">
                                 <i class="fab fa-github"></i>
                                 GitHub Repository
                             </a>
@@ -414,7 +437,7 @@
                     <p>&copy; 2025 Samir Leonardo Caizapasto Hernández - ESPOL</p>
                 </div>
                 <div class="footer-right">
-                    <a href="https://github.com/Sam-24-dev/An-lisis-Ping-Pong" target="_blank">
+                    <a href="https://github.com/Sam-24-dev/Analisis-Ping-Pong" target="_blank">
                         <i class="fab fa-github"></i>
                     </a>
                 </div>
@@ -424,4 +447,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
