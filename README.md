@@ -20,7 +20,7 @@
 
 ---
 
-## 📋 Project Overview
+##  Project Overview
 
 This project is a rigorous experimental study designed to **model and predict the precision of ping pong serves** under controlled conditions. 
 
@@ -30,7 +30,7 @@ Using a dataset of **309 observations**, I implemented a comprehensive statistic
 
 ---
 
-## 🔬 Statistical Methodology
+##  Statistical Methodology
 
 To ensure scientific validity, the analysis followed a structured pipeline:
 
@@ -41,18 +41,18 @@ To ensure scientific validity, the analysis followed a structured pipeline:
 
 ---
 
-## 📈 Key Findings & Insights
+##  Key Findings & Insights
 
 | Metric | Result | Interpretation (Data Analysis) |
 | :--- | :--- | :--- |
-| **Model Fit (P-Value)** | **0.6603** ✅ | The data **successfully fits** the Negative Binomial model. There is no significant difference between observed and theoretical values. |
+| **Model Fit (P-Value)** | **0.6603**  | The data **successfully fits** the Negative Binomial model. There is no significant difference between observed and theoretical values. |
 | **Avg. Serve Time** | **1.945s** | Significantly faster than the theoretical benchmark of 2.0s (Validated via T-Test). |
-| **Correlation ($r$)** | **0.65** 📈 | Moderate **positive correlation**: As the number of attempts increases, serve time increases (Fatigue factor). |
+| **Correlation ($r$)** | **0.65**  | Moderate **positive correlation**: As the number of attempts increases, serve time increases (Fatigue factor). |
 | **Demographics** | **64.4%** | Proportion of right-handed players, consistent with the general population parameter. |
 
 ---
 
-## 📊 Visualizations & Analysis
+##  Visualizations & Analysis
 
 The study includes interactive visualizations generated with **RMarkdown**:
 * **Distribution Analysis:** Histograms overlaying the Negative Binomial curve.
@@ -62,7 +62,7 @@ The study includes interactive visualizations generated with **RMarkdown**:
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 This project was built using the **R Ecosystem** for reproducible research:
 
@@ -73,7 +73,7 @@ This project was built using the **R Ecosystem** for reproducible research:
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 To replicate this analysis:
 
